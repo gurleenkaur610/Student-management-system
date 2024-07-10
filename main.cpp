@@ -97,7 +97,17 @@ void printMenu(){
         }
     return true;
     }
-
+    bool isValidClassIncharge(const string &classIncharge)
+    {
+        for(char c : classIncharge )
+        {
+            if (!isalpha(c) && c != ' ')
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 int main()
 {
     char option = 0;
@@ -143,7 +153,7 @@ int main()
 
                 while (!isValidName(name))
                 {
-                    cout << "Invalid input. Please enter a valid name: " << endl;
+                    cout << "Invalid input. Please enter an alphabetical value for student name: " << endl;
                     getline(cin, name);
                 }
 
@@ -158,8 +168,13 @@ int main()
 
 
             cout<<"Enter name of class incharge:"<<endl;
-            cin.ignore(0);
             getline(cin,classIncharge);
+
+            while (!isValidClassIncharge(classIncharge))
+            {
+                cout << "Invalid input. Please enter an alphabetical value for name of class incharge:";
+                getline(cin,classIncharge);
+            }
 
             students[i]=student(rollNo,name,grade,classIncharge);
             cout<<"DATA OF RECORD ADDED"<<endl;
