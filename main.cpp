@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include<cctype>
 using namespace std;
 
 class student
@@ -72,6 +73,7 @@ public:
         cout << "Grade:" << grade << endl;
         cout << "Class Incharge:" << classIncharge << endl;
     }
+    
 
 };
 void printMenu(){
@@ -83,9 +85,18 @@ void printMenu(){
     cout << "E. Update record\n";
     cout << "F. Quit\n";
     cout << "Choose an option:-";
-    
-
-}
+    }
+    bool isValidName(const string &name)
+    {
+        for (char c : name) 
+        {
+        if (!isalpha(c) && c != ' ')
+          {
+            return false;
+          }
+        }
+    return true;
+    }
 
 int main()
 {
@@ -93,6 +104,7 @@ int main()
     const int max_students = 100;
     student students[max_students];
     int total=0;
+    
     printMenu();
     cin>>option;
     while(option!='F')
@@ -125,10 +137,16 @@ int main()
                 cin.ignore();
             } 
             cin.ignore();
+            
+            cout << "Enter name of student: " << endl;
+                getline(cin, name);
 
-            cout<<"Enter name of student:"<<endl;
-            cin.ignore(0);
-            getline(cin,name); 
+                while (!isValidName(name))
+                {
+                    cout << "Invalid input. Please enter a valid name: " << endl;
+                    getline(cin, name);
+                }
+
            
             cout << "Enter grade of student: " << endl;
                 while (!(cin >> grade)) {
