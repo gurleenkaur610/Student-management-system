@@ -83,7 +83,8 @@ void printMenu(){
     cout << "C. Find by name\n";
     cout << "D. Find by roll no\n";
     cout << "E. Update record\n";
-    cout << "F. Quit\n";
+    cout << "F. Show data\n";
+    cout << "G. Quit\n";
     cout << "Choose an option:-";
     }
     bool isValidName(const string &name)
@@ -117,7 +118,7 @@ int main()
     
     printMenu();
     cin>>option;
-    while(option!='F')
+    while(option!='G')
     {
     switch (option)
     {
@@ -201,9 +202,9 @@ int main()
             }
             total--;
             cout << "Record deleted successfully!!" << endl;
-            break;
+            
         }
-    
+
         if(!found){
             cout<<"Record not found."<<endl;
         }
@@ -284,6 +285,21 @@ int main()
         }
         break;
         case 'F':{
+            int rollNo;
+            string name;
+            int grade;
+            string classIncharge;
+           
+            for(int i=0; i<total; i++)
+            {
+               
+                cout << "Saved Data of Students "<<i+1<<endl;
+                students[i].printdetails();
+                
+            }
+        }
+        break;
+        case 'G':{
             cout << "Exiting the program." << endl;
         }
         break;
