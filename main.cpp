@@ -74,9 +74,7 @@ public:
         cout << "Grade:" << grade << endl;
         cout << "Class Incharge:" << classIncharge << endl;
     }
-    string tostring(){
-    return to_string(rollNo) + "," + name + "," + to_string(grade) + "," + classIncharge;
-    }
+   
 };
 void printMenu(){
     
@@ -125,6 +123,10 @@ void printMenu(){
         }
         infile.close();  
     }
+    int rollNo;
+    string name;
+    int grade;
+    string classIncharge;
     void saveStudentData(const string &filename,student students[],int total){
         ofstream outfile(filename);
         if(!outfile){
@@ -132,7 +134,12 @@ void printMenu(){
             return;
         }
         for(int i=0;i<total;i++){
-            outfile<<students[i].tostring()<<endl;
+            outfile<<"\nstudent "<<i+1<<endl;
+            outfile<<"Data:"<<endl;
+            outfile<<"Roll NO:"<<students[i].getrollNo()<<endl;
+            outfile<<"Name:"<<students[i].getname()<<endl;
+            outfile<<"Grade:"<<students[i].getgrade()<<endl;
+            outfile<<"Class Incharge:"<<students[i].getclassIcharge()<<endl;
         }
         outfile.close();
         cout << "Data successfully saved to "<<filename<<endl;
