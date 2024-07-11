@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include<fstream>
 #include<cctype>
 using namespace std;
 
@@ -73,8 +74,9 @@ public:
         cout << "Grade:" << grade << endl;
         cout << "Class Incharge:" << classIncharge << endl;
     }
-    
-
+    string tostring(){
+    return to_string(rollNo) + "," + name + "," + to_string(grade) + "," + classIncharge;
+    }
 };
 void printMenu(){
     
@@ -84,7 +86,9 @@ void printMenu(){
     cout << "D. Find by roll no\n";
     cout << "E. Update record\n";
     cout << "F. Show data\n";
-    cout << "G. Quit\n";
+    cout << "G. Save data\n";
+    cout << "H. Read data from file\n";
+    cout << "I. Quit\n";
     cout << "Choose an option:-";
     }
     bool isValidName(const string &name)
@@ -109,6 +113,30 @@ void printMenu(){
         }
         return true;
     }
+    void printStudentData(const string &filename){
+        ifstream infile(filename);
+        if(!infile){
+            cout << "Unable to open file."<<filename<<endl;
+            return;
+        }
+        string line;
+        while(getline(infile,line)){
+            cout << line << endl;
+        }
+        infile.close();  
+    }
+    void saveStudentData(const string &filename,student students[],int total){
+        ofstream outfile(filename);
+        if(!outfile){
+            cout << "Unable to open file."<<filename<<endl;
+            return;
+        }
+        for(int i=0;i<total;i++){
+            outfile<<students[i].tostring()<<endl;
+        }
+        outfile.close();
+        cout << "Data successfully saved to "<<filename<<endl;
+    }
 int main()
 {
     char option = 0;
@@ -118,7 +146,7 @@ int main()
     
     printMenu();
     cin>>option;
-    while(option!='G')
+    while(option!='I')
     {
     switch (option)
     {
@@ -132,6 +160,7 @@ int main()
         int grade;
         string classIncharge;
         int ch = 0;
+        string filename;
 
         cout << "How many students do u want to enter??" << endl;
         cin >> ch;
@@ -178,6 +207,7 @@ int main()
             }
 
             students[i]=student(rollNo,name,grade,classIncharge);
+            
             cout<<"DATA OF RECORD ADDED"<<endl;
             students[i].printdetails();
         
@@ -300,6 +330,21 @@ int main()
         }
         break;
         case 'G':{
+            string filename;
+            cout << "Enter file name to save student data to:";
+            cin >> filename;
+            saveStudentData(filename,students,total);
+        }
+        break;
+        case 'H':{
+            string filename ;
+            cout << "Enter filename to read student data from: ";
+            cin >> filename;
+            cout << "Printing Student data from file "<<filename<<endl;
+            printStudentData(filename);
+
+        }
+        case 'I':{
             cout << "Exiting the program." << endl;
         }
         break;
